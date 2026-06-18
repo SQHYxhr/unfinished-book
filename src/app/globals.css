@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --void-brown: #0D0B09;
+  --gallery-black: #13110F;
+  --varnish-brown: #241C16;
+  --bone-paper: #E3DAC9;
+  --old-canvas: #B9A98F;
+  --dried-wine: #672F34;
+  --oxidized-gold: #9A7B47;
+  --deep-moss: #37463B;
+  --night-blue: #1D2631;
+
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", "STSong", "Songti SC", serif;
+  --font-sans-sc: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-void-brown: var(--void-brown);
+  --color-gallery-black: var(--gallery-black);
+  --color-varnish-brown: var(--varnish-brown);
+  --color-bone-paper: var(--bone-paper);
+  --color-old-canvas: var(--old-canvas);
+  --color-dried-wine: var(--dried-wine);
+  --color-oxidized-gold: var(--oxidized-gold);
+  --color-deep-moss: var(--deep-moss);
+  --color-night-blue: var(--night-blue);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ---- Base ---- */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--gallery-black);
+  color: var(--bone-paper);
+  font-family: var(--font-sans-sc), var(--font-geist-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Selection ---- */
+
+::selection {
+  background-color: var(--dried-wine);
+  color: var(--bone-paper);
+}
+
+/* ---- Links ---- */
+
+a {
+  color: var(--old-canvas);
+  text-decoration-color: var(--oxidized-gold);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+a:hover {
+  color: var(--bone-paper);
+  text-decoration-color: var(--bone-paper);
+}
+
+/* ---- Focus ---- */
+
+:focus-visible {
+  outline: 2px solid var(--oxidized-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
