@@ -1,270 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  /* 古典油画展厅色彩 */
-  --void-black: #080605;
-  --gallery-wall: #0E0C09;
-  --velvet-shadow: #16120D;
-  --varnish-amber: #1F1810;
-  --old-frame: #2A2016;
-  --frame-gold: #8B6F3D;
-  --frame-gold-light: #A8894F;
+  --void-brown: #0D0B09;
+  --gallery-black: #13110F;
+  --varnish-brown: #241C16;
   --bone-paper: #E3DAC9;
   --old-canvas: #B9A98F;
-  --parchment: #D4C8AD;
   --dried-wine: #672F34;
   --oxidized-gold: #9A7B47;
   --deep-moss: #37463B;
   --night-blue: #1D2631;
-  --candle-glow: #4A3820;
-
-  /* 字体 */
-  --font-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", "STSong", "Songti SC", serif;
-  --font-sans-sc: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif;
 }
 
 @theme inline {
-  --color-void-black: var(--void-black);
-  --color-gallery-wall: var(--gallery-wall);
-  --color-velvet-shadow: var(--velvet-shadow);
-  --color-varnish-amber: var(--varnish-amber);
-  --color-old-frame: var(--old-frame);
-  --color-frame-gold: var(--frame-gold);
-  --color-frame-gold-light: var(--frame-gold-light);
+  --color-void-brown: var(--void-brown);
+  --color-gallery-black: var(--gallery-black);
+  --color-varnish-brown: var(--varnish-brown);
   --color-bone-paper: var(--bone-paper);
   --color-old-canvas: var(--old-canvas);
-  --color-parchment: var(--parchment);
   --color-dried-wine: var(--dried-wine);
   --color-oxidized-gold: var(--oxidized-gold);
   --color-deep-moss: var(--deep-moss);
   --color-night-blue: var(--night-blue);
-  --color-candle-glow: var(--candle-glow);
 }
 
 /* ============================================================
-   Base — 画布纹理 + 古典氛围
+   Base
    ============================================================ */
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--void-black);
 }
 
 body {
-  background-color: var(--gallery-wall);
+  background-color: var(--void-brown);
   color: var(--bone-paper);
-  font-family: var(--font-sans-sc), var(--font-geist-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* 极 subtle 画布纹理叠加 */
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='canvas'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23canvas)' opacity='0.04'/%3E%3C/svg%3E");
 }
-
-/* ---- Selection ---- */
 
 ::selection {
   background-color: var(--dried-wine);
   color: var(--bone-paper);
 }
 
-/* ---- Links ---- */
-
-a {
-  color: var(--old-canvas);
-  text-decoration-color: var(--oxidized-gold);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 5px;
-  transition: color 0.5s ease, text-decoration-color 0.5s ease;
-}
-
-a:hover {
-  color: var(--bone-paper);
-  text-decoration-color: var(--frame-gold-light);
-}
-
-/* ---- Focus ---- */
-
 :focus-visible {
-  outline: 2px solid var(--frame-gold);
+  outline: 2px solid var(--oxidized-gold);
   outline-offset: 3px;
   border-radius: 1px;
 }
 
 /* ============================================================
-   Gallery Components
+   Utility: oxidized-gold line hover
    ============================================================ */
 
-/* 画框效果 — 深色木框 + 内嵌氧化金线 */
-.oil-frame {
-  position: relative;
-  box-shadow:
-    /* 外框：深色旧木 */
-    0 0 0 12px var(--old-frame),
-    0 0 0 13px rgba(0,0,0,0.3),
-    /* 内嵌金线 */
-    0 0 0 15px var(--frame-gold),
-    0 0 0 16px rgba(0,0,0,0.25),
-    /* 内框投影 */
-    inset 0 0 60px 30px rgba(0,0,0,0.6);
-  border-radius: 1px;
-}
-
-/* 清漆光泽层 */
-.varnish-sheen {
+.gold-line-hover {
   position: relative;
 }
 
-.varnish-sheen::after {
-  content: '';
+.gold-line-hover::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at 40% 30%,
-    rgba(168, 137, 79, 0.06) 0%,
-    transparent 70%
-  );
-}
-
-/* 展签式标题 */
-.gallery-label {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0.04em;
-  color: var(--bone-paper);
-}
-
-/* 展签英文副标 */
-.gallery-caption {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--old-canvas);
-  opacity: 0.6;
-}
-
-/* 展签正文 */
-.gallery-note {
-  font-size: clamp(0.875rem, 1.2vw, 1rem);
-  line-height: 1.9;
-  color: var(--parchment);
-  max-width: 38ch;
-}
-
-/* 暗区过渡 */
-.silent-passage {
-  height: clamp(100px, 18vh, 200px);
-}
-
-/* Hover 金线指示 */
-.gold-accent-left {
-  position: relative;
-  padding-left: 0;
-  transition: padding-left 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.gold-accent-left::before {
-  content: '';
-  position: absolute;
+  bottom: -1px;
   left: 0;
-  top: 0.15em;
-  bottom: 0.15em;
-  width: 0px;
-  background: var(--frame-gold);
+  width: 0;
+  height: 1px;
+  background: var(--oxidized-gold);
   opacity: 0;
-  transition: width 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.4s ease;
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.6s ease;
 }
 
-.gold-accent-left:hover {
-  padding-left: 1.25rem;
+.gold-line-hover:hover::after {
+  width: 100%;
+  opacity: 0.55;
 }
 
-.gold-accent-left:hover::before {
-  width: 2px;
-  opacity: 0.7;
-}
-
-/* 入口按钮 — 庄严克制 */
-.portal-btn {
-  display: inline-block;
-  padding: 0.85rem 2.25rem;
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
-  color: var(--bone-paper);
-  text-decoration: none;
-  background: transparent;
-  border: 1px solid rgba(185, 169, 143, 0.2);
-  transition: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-  cursor: pointer;
-}
-
-.portal-btn:hover {
-  border-color: var(--frame-gold-light);
-  background: rgba(31, 24, 16, 0.5);
-  color: var(--parchment);
-}
-
-.portal-btn:active {
-  transform: scale(0.985);
-}
-
-.portal-btn:focus-visible {
-  outline: 2px solid var(--frame-gold);
-  outline-offset: 3px;
-}
-
-/* 告别志文章条目 */
-.farewell-entry {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(42, 32, 22, 0.4);
-  transition: border-color 0.5s ease;
-}
-
-.farewell-entry:first-child {
-  border-top: 1px solid rgba(42, 32, 22, 0.4);
-}
-
-.farewell-entry:hover {
-  border-bottom-color: var(--frame-gold);
-}
-
-.farewell-entry .category-tag {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--dried-wine);
-  opacity: 0.7;
-}
-
-.farewell-entry .entry-title {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: var(--bone-paper);
-  letter-spacing: 0.03em;
-}
-
-.farewell-entry .entry-summary {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: var(--old-canvas);
-}
-
-/* 旧问录区 */
-.old-questions-sanctum {
-  position: relative;
-  text-align: left;
-  max-width: 30ch;
-}
-
-/* ---- Reduced motion ---- */
+/* ============================================================
+   Accessibility
+   ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -278,25 +92,3 @@ a:hover {
     scroll-behavior: auto;
   }
 }
-
-/* ---- Scroll-driven fade-in utilities ---- */
-
-@keyframes fade-rise {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-rise {
-  animation: fade-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-.animate-delay-1 { animation-delay: 0.15s; }
-.animate-delay-2 { animation-delay: 0.3s; }
-.animate-delay-3 { animation-delay: 0.45s; }
-.animate-delay-4 { animation-delay: 0.6s; }
